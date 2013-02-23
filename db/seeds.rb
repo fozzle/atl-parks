@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require('csv')
+require 'nokogiri'
 
 class String
 	def to_bool
@@ -14,6 +15,7 @@ class String
 		raise ArgumentError.new("Invalid value for boolean conversion: \"#{self}\"")
 	end
 end
+
 
 count = 0
 CLASSIFY = {"B" => "block", 
@@ -59,4 +61,16 @@ CLASSIFY = {"B" => "block",
     park.save
   end
   count += 1
+end
+
+f = File.open("db/Export_Outputprk_34.kml")
+doc = Nokogiri::XML(f)
+
+doc.css("Placemark").each do |item|
+  name = item.css("name").text
+  park = Park.find_by_name(name)
+  if (park.nil?)
+    park.lat = item.css("coordinates").text.css("coordinates").text.split(',')[1]
+    park.long = item.css("coordinates").text.css("coordinates").text.split(',')[0]  
+  end
 end
