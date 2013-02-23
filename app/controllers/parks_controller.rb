@@ -18,14 +18,14 @@ class ParksController < ApplicationController
     @parks = @parks.where("volleyball_courts >= ?", params[:volleyball_courts]) if params[:volleyball_courts].present?
     @parks = @parks.where("paved_trails >= ?", params[:paved_trails]) if params[:paved_trails].present?
     @parks = @parks.where("unpaved_trails >= ?", params[:unpaved_trails]) if params[:unpaved_trails].present?
-    @parks = @parks.where(pool: true) if params[:pool] == '1'
-    @parks = @parks.where("gym == 't' OR recreation_center == 't'") if params[:gym] == '1'
-    # @parks = @parks.where(recreation_center: true).or(gym:true) if params[:gym] == '1'
-    # @parks = @parks.where(covbb: true) if params[:covbb] == '1'
-    @parks = @parks.where(dog_park: true) if params[:dog_park] == '1'
-    @parks = @parks.where(track: true) if params[:track] == '1'
-    @parks = @parks.where(nat: true) if params[:nat] == '1'
-    @parks = @parks.where(golf: true) if params[:golf] == '1'
+    @parks = @parks.where(pool: true) if params[:pool] == 'true'
+    @parks = @parks.where("gym == 't' OR recreation_center == 't'") if params[:gym] == 'true'
+    # @parks = @parks.where(recreation_center: true).or(gym:true) if params[:gym] == 'true'
+    # @parks = @parks.where(covbb: true) if params[:covbb] == 'true'
+    @parks = @parks.where(dog_park: true) if params[:dog_park] == 'true'
+    @parks = @parks.where(track: true) if params[:track] == 'true'
+    @parks = @parks.where(nat: true) if params[:nat] == 'true'
+    @parks = @parks.where(golf: true) if params[:golf] == 'true'
     @parks = @parks.where("area >= ?", params[:area]) if params[:area].present?
     @parks = @parks.paginate(page: params[:page]) if params[:page].present?
     if params[:q].present?
