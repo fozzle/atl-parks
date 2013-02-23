@@ -9,6 +9,7 @@ gem 'pg'
 gem 'sqlite3'
 gem 'texticle', "2.0", :require => 'texticle/rails'
 gem "activeadmin", "~> 0.5.1"
+gem 'will_paginate', '~> 3.0'
 
 gem 'nokogiri'
 

@@ -25,6 +25,7 @@ class ParksController < ApplicationController
     @parks = @parks.where(nat: true) if params[:nat] == '1'
     @parks = @parks.where(golf: true) if params[:golf] == '1'
     @parks = @parks.where("area >= ?", params[:area]) if params[:area].present?
+    @parks = @parks.paginate(page: params[:page]) if params[:page].present?
 
     respond_to do |format|
       format.html # index.html.erb
