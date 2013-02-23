@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223045203) do
+ActiveRecord::Schema.define(:version => 20130223100220) do
 
   create_table "parks", :force => true do |t|
     t.string   "name"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20130223045203) do
     t.decimal  "area"
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
-    t.decimal  "lat",               :precision => 13, :scale => 10
-    t.decimal  "long",              :precision => 13, :scale => 10
+    t.decimal  "latitude",          :precision => 13, :scale => 10
+    t.decimal  "longitude",         :precision => 13, :scale => 10
   end
 
 end
