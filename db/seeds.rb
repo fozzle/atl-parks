@@ -74,7 +74,9 @@ doc.css("Placemark").each do |item|
   if !park.nil?
     park.latitude = item.css("coordinates").text.split(',')[1]
     park.longitude = item.css("coordinates").text.split(',')[0]
-    park.kml = item.to_s
+    coords = item.css("coordinates").text.split(' ')
+    coords = coords.map {|raw| raw.split(',')[0..1]}
+    park.kml = coords
     park.save
   end
 end
