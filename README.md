@@ -28,6 +28,8 @@ You can query parks on the `http://atlparks.herokuapp.com/parks.json` endpoint. 
 * nat - Boolean
 * golf - Boolean
 * area - Decimal
+* unpaved_trail - decimal
+* unpaved_trail - Decimal
 * page - Integer (Pagination control)
 * distance - Decimal (use parameter q to query for distance)
 
@@ -52,6 +54,7 @@ You will be returned a list of JSON objects that look similar to this:
 "name":"Chattahoochee Trail",
 "nat":false,
 "parking_spaces":0,
+"paved_trails":0,
 "pavilions":0,
 "picnic_shelters":0,
 "picnic_tables":0,
@@ -62,6 +65,7 @@ You will be returned a list of JSON objects that look similar to this:
 "soccer_fields":0,
 "tennis_courts":0,
 "track":false,
+"unpaved_trails":0
 "updated_at":"2013-02-23T15:08:34Z",
 "volleyball_courts":0,
 "zip_code":30318}</pre>
