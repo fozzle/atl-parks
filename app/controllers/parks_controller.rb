@@ -16,6 +16,8 @@ class ParksController < ApplicationController
     @parks = @parks.where("tennis_courts >= ?", params[:tennis_courts]) if params[:tennis_courts].present?
     @parks = @parks.where("basketball_courts >= ?", params[:basketball_courts]) if params[:basketball_courts].present?
     @parks = @parks.where("volleyball_courts >= ?", params[:volleyball_courts]) if params[:volleyball_courts].present?
+    @parks = @parks.where("paved_trails >= ?", params[:paved_trails]) if params[:paved_trails].present?
+    @parks = @parks.where("unpaved_trails >= ?", params[:unpaved_trails]) if params[:unpaved_trails].present?
     @parks = @parks.where(pool: true) if params[:pool] == '1'
     @parks = @parks.where(gym: true) if params[:gym] == '1'
     @parks = @parks.where(recreation_center: true) if params[:recreation_center] == '1'

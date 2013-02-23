@@ -36,6 +36,8 @@ CLASSIFY = {"B" => "block",
     park.address = row[5]
     park.gis_ac = row[6]
     park.zip_code = row[7].to_i
+    park.paved_trails = row[8].blank? ? 0 : row[8].to_i
+    park.unpaved_trails = row[9].blank? ? 0 : row[9].to_i
     park.pavilions = row[10].blank? ? 0 : row[10].to_i 
     park.playgrounds = row[11].blank? ? 0 : row[11].to_i 
     park.picnic_shelters = row[12].blank? ? 0 : row[12].to_i 
