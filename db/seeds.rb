@@ -70,8 +70,9 @@ doc.css("Placemark").each do |item|
   name = item.css("name").text
   park = Park.find_by_name(name)
   if !park.nil?
-    park.lat = item.css("coordinates").text.split(',')[1]
-    park.long = item.css("coordinates").text.split(',')[0]
+    park.latitude = item.css("coordinates").text.split(',')[1]
+    park.longitude = item.css("coordinates").text.split(',')[0]
+    park.kml = item.to_s
     park.save
   end
 end
