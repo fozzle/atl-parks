@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  classification: MyString
+  address: MyString
+  gix_ac: 9.99
+  zip_code: 1
+  pavilions: 1
+  playgrounds: 1
+  picnic_shelters: 1
+  gazebos: 1
+  picnic_Tables: 1
+  grills: 1
+  restrooms: 1
+  parking_spaces: 1
+  ball_fields: 1
+  soccer_fields: 1
+  tennis_courts: 1
+  basketball_courts: 1
+  volleyball_courts: 1
+  pool: false
+  gym: false
+  recreation_center: false
+  covbb: false
+  dog_park: false
+  track: false
+  nat: false
+  golf: false
+  area: 9.99
+
+two:
+  name: MyString
+  classification: MyString
+  address: MyString
+  gix_ac: 9.99
+  zip_code: 1
+  pavilions: 1
+  playgrounds: 1
+  picnic_shelters: 1
+  gazebos: 1
+  picnic_Tables: 1
+  grills: 1
+  restrooms: 1
+  parking_spaces: 1
+  ball_fields: 1
+  soccer_fields: 1
+  tennis_courts: 1
+  basketball_courts: 1
+  volleyball_courts: 1
+  pool: false
+  gym: false
+  recreation_center: false
+  covbb: false
+  dog_park: false
+  track: false
+  nat: false
+  golf: false
+  area: 9.99
