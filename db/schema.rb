@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223141643) do
+ActiveRecord::Schema.define(:version => 20130223145603) do
 
   create_table "parks", :force => true do |t|
     t.string   "name"
@@ -41,11 +41,11 @@ ActiveRecord::Schema.define(:version => 20130223141643) do
     t.boolean  "nat"
     t.boolean  "golf"
     t.decimal  "area"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
-    t.decimal  "latitude",          :precision => 13, :scale => 10
-    t.decimal  "longitude",         :precision => 13, :scale => 10
-    t.string   "kml"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.decimal  "latitude",                         :precision => 13, :scale => 10
+    t.decimal  "longitude",                        :precision => 13, :scale => 10
+    t.text     "kml",               :limit => 255
   end
 
 end
