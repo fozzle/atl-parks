@@ -4,6 +4,7 @@ class ParksController < ApplicationController
   def index
 
     @parks = Park.scoped
+    @parks = @parks.where("name like ?", params[:name]) if params[:name].present?
     @parks = @parks.where("pavilions >= ?", params[:pavilions]) if params[:pavilions].present?
     @parks = @parks.where("playgrounds >= ?", params[:playgrounds]) if params[:playgrounds].present?
     @parks = @parks.where("picnic_shelters >= ?", params[:picnic_shelters]) if params[:picnic_shelters].present?
@@ -31,7 +32,7 @@ class ParksController < ApplicationController
     if params[:q].present?
       @parks = @parks.near(params[:q])
       @parks.each do |park|
-        park[:distance] = park.distance.round(2)
+        park[:distance] = park.distance.to_f.round(2)
       end
     end
     @parks = @parks.paginate(page: 1, :per_page => 10)
