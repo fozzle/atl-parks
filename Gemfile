@@ -5,11 +5,15 @@ gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+group :production do
+	gem 'pg'
+end
 
 group :development do
   gem 'sqlite3'
 end
+
+gem 'thin'
 gem 'texticle', "2.0", :require => 'texticle/rails'
 gem "activeadmin", "~> 0.5.1"
 gem 'will_paginate', '~> 3.0'
