@@ -69,8 +69,9 @@ doc = Nokogiri::XML(f)
 doc.css("Placemark").each do |item|
   name = item.css("name").text
   park = Park.find_by_name(name)
-  if (park.nil?)
-    park.lat = item.css("coordinates").text.css("coordinates").text.split(',')[1]
-    park.long = item.css("coordinates").text.css("coordinates").text.split(',')[0]  
+  if !park.nil?
+    park.lat = item.css("coordinates").text.split(',')[1]
+    park.long = item.css("coordinates").text.split(',')[0]
+    park.save
   end
 end
