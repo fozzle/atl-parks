@@ -30,8 +30,8 @@ CLASSIFY = {"B" => "block",
   if (count >= 1)
     park = Park.new
     park.name = row[1]
-    park.classification =  CLASSIFY[row[3].strip]
-    park.address = row[4]
+    park.classification =  CLASSIFY.has_key?(row[2].strip) ? CLASSIFY[row[2].strip] : row[2].strip
+    park.address = row[5]
     park.gis_ac = row[6]
     park.zip_code = row[7].to_i
     park.pavilions = row[10].blank? ? 0 : row[10].to_i 
