@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require('csv')
+@parsed = CSV.foreach("lol.csv") do |row|
+  row.each do |datapoint|
+    print datapoint
+  end
+end
