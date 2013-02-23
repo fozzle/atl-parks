@@ -21,8 +21,6 @@ You can query parks on the `http://atlparks.herokuapp.com/parks.json` endpoint. 
 * volleyball_courts - Integer
 * pool - Boolean
 * gym - Boolean
-* recreation_center - Boolean
-* covbb - Boolean
 * dog_park - Boolean
 * track - Boolean
 * nat - Boolean
