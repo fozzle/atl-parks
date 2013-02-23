@@ -6,8 +6,9 @@ class ParksController < ApplicationController
     @parks = Park.scoped
     @parks = @parks.where("pavilions >= ?", params[:pavilions]) if params[:pavilions].present?
     @parks = @parks.where("playgrounds >= ?", params[:playgrounds]) if params[:playgrounds].present?
-    @parks = @parks.where("picnic_shelters >= ?", params[:picnic_tables]) if params[:picnic_tables].present?
+    @parks = @parks.where("picnic_shelters >= ?", params[:picnic_shelters]) if params[:picnic_shelters].present?
     @parks = @parks.where("grills >= ?", params[:grills]) if params[:grills].present?
+    @parks = @parks.where("picnic_tables >= ?", params[:picnic_tables]) if params[:picnic_tables]
     @parks = @parks.where("restrooms >= ?", params[:restrooms]) if params[:restrooms].present?
     @parks = @parks.where("parking_spaces >= ?", params[:parking_spaces]) if params[:parking_spaces].present?
     @parks = @parks.where("ball_fields >= ?", params[:ball_fields]) if params[:ball_fields].present?
@@ -15,14 +16,14 @@ class ParksController < ApplicationController
     @parks = @parks.where("tennis_courts >= ?", params[:tennis_courts]) if params[:tennis_courts].present?
     @parks = @parks.where("basketball_courts >= ?", params[:basketball_courts]) if params[:basketball_courts].present?
     @parks = @parks.where("volleyball_courts >= ?", params[:volleyball_courts]) if params[:volleyball_courts].present?
-    @parks = @parks.where(pool: true) if params[:pool] == 1
-    @parks = @parks.where(gym: true) if params[:gym] == 1
-    @parks = @parks.where(recreation_center: true) if params[:recreation_center] == 1
-    @parks = @parks.where(covbb: true) if params[:covbb] == 1
-    @parks = @parks.where(dog_park: true) if params[:dog_park] == 1
-    @parks = @parks.where(track: true) if params[:track] == 1
-    @parks = @parks.where(nat: true) if params[:nat] == 1
-    @parks = @parks.where(golf: true) if params[:golf] == 1
+    @parks = @parks.where(pool: true) if params[:pool] == '1'
+    @parks = @parks.where(gym: true) if params[:gym] == '1'
+    @parks = @parks.where(recreation_center: true) if params[:recreation_center] == '1'
+    @parks = @parks.where(covbb: true) if params[:covbb] == '1'
+    @parks = @parks.where(dog_park: true) if params[:dog_park] == '1'
+    @parks = @parks.where(track: true) if params[:track] == '1'
+    @parks = @parks.where(nat: true) if params[:nat] == '1'
+    @parks = @parks.where(golf: true) if params[:golf] == '1'
     @parks = @parks.where("area >= ?", params[:area]) if params[:area]
 
     respond_to do |format|
