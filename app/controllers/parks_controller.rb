@@ -28,7 +28,7 @@ class ParksController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @parks }
+      format.json { render json: @parks, callback: params[:callback] }
     end
   end
 
