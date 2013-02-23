@@ -7,6 +7,7 @@ class ParksController < ApplicationController
     @parks = @parks.where("pavilions >= ?", params[:pavilions]) if params[:pavilions].present?
     @parks = @parks.where("playgrounds >= ?", params[:playgrounds]) if params[:playgrounds].present?
     @parks = @parks.where("picnic_shelters >= ?", params[:picnic_shelters]) if params[:picnic_shelters].present?
+    @parks = @parks.where("gazebos >= ?", params[:gazebos]) if params[:gazebos].present?
     @parks = @parks.where("grills >= ?", params[:grills]) if params[:grills].present?
     @parks = @parks.where("picnic_tables >= ?", params[:picnic_tables]) if params[:picnic_tables].present?
     @parks = @parks.where("restrooms >= ?", params[:restrooms]) if params[:restrooms].present?

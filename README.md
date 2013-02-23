@@ -12,6 +12,7 @@ You can query parks on the `http://atlparks.herokuapp.com/parks.json` endpoint. 
 * playgrounds - Integer
 * picnic_tables - Integer
 * picnic_shelters - Integer
+* gazebos - Integer
 * restrooms - Integer
 * parking_spaces - Integer
 * grill - Integer
