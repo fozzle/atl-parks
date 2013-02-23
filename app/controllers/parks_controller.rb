@@ -26,6 +26,12 @@ class ParksController < ApplicationController
     @parks = @parks.where(golf: true) if params[:golf] == '1'
     @parks = @parks.where("area >= ?", params[:area]) if params[:area].present?
     @parks = @parks.paginate(page: params[:page]) if params[:page].present?
+    if params[:q].present?
+      @parks = @parks.near(params[:q])
+      @parks.each do |park|
+        park[:distance] = park.distance.round(2)
+      end
+    end
 
     respond_to do |format|
       format.html # index.html.erb
