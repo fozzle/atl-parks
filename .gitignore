@@ -16,3 +16,9 @@
 /tmp
 
 /config/database.yml
+
+###SublimeText###
+ 
+# SublimeText project files
+/*.sublime-project
+*.sublime-workspace
