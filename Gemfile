@@ -15,7 +15,6 @@ end
 
 gem 'thin'
 gem 'texticle', "2.0", :require => 'texticle/rails'
-gem "activeadmin", "~> 0.5.1"
 gem 'will_paginate', '~> 3.0'
 
 gem 'nokogiri'
@@ -34,6 +33,9 @@ end
 
 gem 'jquery-rails'
 gem 'geocoder'
+
+gem 'devise'
+gem 'rails_admin'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
