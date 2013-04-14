@@ -1,1 +1,16 @@
-hi
+%header#page-header
+  %img#logo{:alt => "Park Find - City of Atlanta", :src => "logo.png"}/
+%nav#navigation{:role => "main"}
+  .nav-inner
+    %div{"ng-view" => ""}
+%section#overview
+  %form#filter{"ng-submit" => "doSearch()"}
+    #form-search.form-section{"ng-class" => "{active: active}"}
+      %input.form-label{:name => "q", "ng-model" => "query", :placeholder => "Search", :type => "text"}/
+      %input.form-arrow{:type => "submit"}/
+    #form-resources.form-section{"ng-class" => "{open: open}"}
+      .form-dropdown
+        %ul
+      %button.form-label{"ng-click" => "open=!open", :type => "button"} Select Resources
+      %button.form-arrow{"ng-click" => "open=!open", :type => "button"} D
+  <google-map id="map" center="center" draggable="true" zoom="zoom" markers="parks" mark-click="true"></google-map>

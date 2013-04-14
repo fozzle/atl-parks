@@ -1,9 +1,23 @@
 !!!
-%title= content_for?(:title) ? yield(:title) : "Park Find"
-%meta{ :name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-%meta{ 'http-equiv' => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
-%meta{ :content => content_for?(:description) ? yield(:description) : "Helping you find parks in Atlanta.", :name => "description"}
-= stylesheet_link_tag :application, :media => "all"
-= javascript_include_tag :application
-= csrf_meta_tags
-= yield
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : "Park Find"
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %meta{ 'http-equiv' => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
+    %meta{ :content => content_for?(:description) ? yield(:description) : "Helping you find parks in Atlanta.", :name => "description"}
+
+    = stylesheet_link_tag :application, :media => "all"
+    <script type="text/javascript" src="//use.typekit.net/ttg4sxw.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    = csrf_meta_tags
+  %body{ 'ng-app' => 'ParkFind', 'ng-controller' => 'ApplicationCtrl' }
+    /[if lt IE 7]
+      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    /[if lt IE 9]
+      <script src="assets/lib/es5-shim/es5-shim.min.js"></script>
+      <script src="assets/lib/json3/json3.min.js"></script>
+
+    = yield
+
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;language=en"></script>
+    = javascript_include_tag :application
