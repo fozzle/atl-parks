@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   layout :layout_by_resource
+  before_filter :intercept_html_requests
 
   protected
 
@@ -11,5 +12,10 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+
+  def intercept_html_requests
+    return if devise_controller?
+    render('home/index') if request.format == Mime::HTML
   end
 end
