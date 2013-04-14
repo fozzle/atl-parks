@@ -27,6 +27,8 @@ class Park < ActiveRecord::Base
                 'paved_trails'
               ]
 
+  # Scope that filters parks with the given amenity.
+  # Can run specific conditions or infer from the field type.
   def self.with_amenity(amenity)
     scoped unless self.columns_hash.has_key?(amenity) and AMENITIES.include?(amenity)
 
@@ -47,5 +49,18 @@ class Park < ActiveRecord::Base
         scoped
       end
     end
+  end
+
+  # Helper method that can take in params and remove keys that are not amenities.
+  # Calls with_amenity for each amenity.
+  def self.with_amenities(amenities)
+    amenities.delete_if {|key, value| value != '1' or not AMENITIES.include?(key)}
+    scope = self.scoped
+
+    amenities.keys.each do |amenity|
+      scope = scope.with_amenity(amenity)
+    end
+
+    scope
   end
 end
