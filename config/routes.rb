@@ -4,5 +4,5 @@ AtlParks::Application.routes.draw do
 
   resources :parks
 
-  root :to => 'welcome#index'
+  root :to => 'home#index'
 end
