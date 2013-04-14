@@ -1,5 +1,5 @@
 %header#page-header
-  %img#logo{:alt => "Park Find - City of Atlanta", :src => "logo.png"}/
+  = image_tag('logo.png', :alt => 'Park Find - City of Atlanta', :id => 'logo')
 %nav#navigation{:role => "main"}
   .nav-inner
     %div{"ng-view" => ""}
@@ -7,10 +7,12 @@
   %form#filter{"ng-submit" => "doSearch()"}
     #form-search.form-section{"ng-class" => "{active: active}"}
       %input.form-label{:name => "q", "ng-model" => "query", :placeholder => "Search", :type => "text"}/
-      %input.form-arrow{:type => "submit"}/
+      %button.form-arrow{:type => "submit"}
+        %span.icon-search-arrow
     #form-resources.form-section{"ng-class" => "{open: open}"}
       .form-dropdown
         %ul
       %button.form-label{"ng-click" => "open=!open", :type => "button"} Select Resources
-      %button.form-arrow{"ng-click" => "open=!open", :type => "button"} D
+      %button.form-arrow{"ng-click" => "open=!open", :style => "font-size: 0.5em;", :type => "button"}
+        %span.icon-filter-arrow
   <google-map id="map" center="center" draggable="true" zoom="zoom" markers="parks" mark-click="true"></google-map>
