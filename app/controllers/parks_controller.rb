@@ -1,4 +1,5 @@
 class ParksController < ApplicationController
+  respond_to :json
   # GET /parks
   # GET /parks.json
   def index
@@ -35,10 +36,9 @@ class ParksController < ApplicationController
         park[:distance] = park.distance.to_f.round(2)
       end
     end
-    @parks = @parks.paginate(page: 1, :per_page => 10)
+    #@parks = @parks.paginate(page: 1, :per_page => 10)
 
     respond_to do |format|
-      format.html # index.html.erb
       format.json { render json: @parks, callback: params[:callback] }
     end
   end
@@ -49,7 +49,6 @@ class ParksController < ApplicationController
     @park = Park.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
       format.json { render json: @park, callback: params[:callback] }
     end
   end
