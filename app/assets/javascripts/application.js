@@ -11,5 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require_tree .
+//= require lib/angular.min.js
+//= require lib/angular-resource.min.js
+//= require lib/angular-google-maps.js
+//= require angularjs/rails/resource
+//= require main.js

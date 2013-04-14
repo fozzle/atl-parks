@@ -7,14 +7,17 @@ var App = angular.module('parkFind', [
 
 App.config([
   '$routeProvider',
-  '$locationProvider'
+  '$locationProvider',
   function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: "/assets/templates/park.list.html",
+        templateUrl: "/assets/templates/home.html",
       })
       .when('/:parkId', {
-        templateUrl: '/assets/templates/park.details.html',
+        templateUrl: '/assets/templates/park.html',
+      })
+      .when('/parks', {
+        templateUrl: '/assets/templates/parks.html',
       })
       .otherwise({
         redirectTo: '/'

@@ -34,6 +34,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'angularjs-rails-resource'
 gem 'geocoder'
 
 gem 'devise'
