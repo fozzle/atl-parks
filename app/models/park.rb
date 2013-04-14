@@ -53,8 +53,8 @@ class Park < ActiveRecord::Base
 
   # Helper method that can take in params and remove keys that are not amenities.
   # Calls with_amenity for each amenity.
-  def self.with_amenities(amenities)
-    amenities.delete_if {|key, value| value != '1' or not AMENITIES.include?(key)}
+  def self.with_amenities(params)
+    amenities = params.reject {|key, value| value != '1' or not AMENITIES.include?(key)}
     scope = self.scoped
 
     amenities.keys.each do |amenity|
