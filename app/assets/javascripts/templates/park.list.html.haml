@@ -1,9 +1,0 @@
-%ul#park-list
-  %li{"ng-show" => "!parks.length"}
-    %h2.park-name No results found.
-  %li{"ng-repeat" => "park in parks"}
-    %a{"ng-href" => "/parks/{{park.id}}"}
-      %span.index
-        {{$index + 1}}.
-      %h2.park-name {{park.name}}
-      %small.park-description{"ng-hide" => "park.distance == null"} {{park.distance|truncateDecimal}} miles from location

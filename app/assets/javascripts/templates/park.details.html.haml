@@ -1,8 +1,0 @@
-%section#park-details
-  %h2 {{park.name}}
-  %address.park-description {{park.address}}
-  %ul.park-resources
-    %li{"ng-repeat" => "(name, amenity) in amenities", "ng-show" => "park[name] >= 1"}
-      %span{:class => "icon-{{name}}", :title => "{{amenity.translation}}"}
-  %small.park-description This park is a {{park.classification}}
-  %a.reservation{:href => "#"} Make a Reservation

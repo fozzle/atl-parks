@@ -1,0 +1,12 @@
+
+<section id='park-details'>
+  <h2>{{park.name}}</h2>
+  <address class='park-description'>{{park.address}}</address>
+  <ul class='park-resources'>
+    <li ng-repeat='(name, amenity) in amenities' ng-show='park[name] &gt;= 1'>
+      <span class='icon-{{name}}' title='{{amenity.translation}}'></span>
+    </li>
+  </ul>
+  <small class='park-description'>This park is a {{park.classification}}</small>
+  <a class='reservation' href='#'>Make a Reservation</a>
+</section>
