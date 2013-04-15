@@ -17,12 +17,13 @@ App.config([
         templateUrl: '/assets/templates/home.html',
       })
       .when('/parks/:parkId', {
-        templateUrl: '/assets/templates/park.html',
+        templateUrl: '/assets/templates/park.details.html',
         controller: 'ParkDetailsCtrl'
       })
       .when('/parks', {
-        templateUrl: '/assets/templates/parks.html',
-        controller: 'ParkListCtrl'
+        templateUrl: '/assets/templates/park.list.html',
+        controller: 'ParkListCtrl',
+        reloadOnSearch: false
       })
       .otherwise({
         redirectTo: '/'

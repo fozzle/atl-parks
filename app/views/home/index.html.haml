@@ -5,16 +5,16 @@
     %div{"ng-view" => ""}
 %section#overview
   %form#filter{"ng-submit" => "doSearch()"}
-    #form-search.form-section{"ng-class" => "{active: active}"}
-      %input.form-label{:name => "q", "ng-model" => "query", :placeholder => "Search", :type => "text"}/
+    #form-search.form-section
+      %input.form-label{:name => "q", "ng-model" => "q", :placeholder => "Search", :type => "text"}/
       %button.form-arrow{:type => "submit"}
         %span.icon-search-arrow
     #form-resources.form-section{"ng-class" => "{open: open}"}
       .form-dropdown
-        %ul{ "ng-repeat" => "amenity in amenities" }
-          %li
-            %input{:name => "{{amenity.name}}", :id => "{{amenity.name}}", "ng-model" => "amenity.active", :type => "checkbox"}/
-            %label{:class => "icon-{{amenity.name}}", :for => "{{amenity.name}}"} {{amenity.translation}}
+        %ul
+          %li{ "ng-repeat" => "(name, amenity) in amenities" }
+            %input{:name => "{{name}}", :id => "{{name}}", "ng-model" => "amenity.active", :type => "checkbox", 'ng-click' => 'amenityToggled(name)'}/
+            %label{:class => "icon-{{name}}", :for => "{{name}}"} {{amenity.translation}}
       %button.form-label{"ng-click" => "open=!open", :type => "button"} Select Resources
       %button.form-arrow{"ng-click" => "open=!open", :style => "font-size: 0.5em;", :type => "button"}
         %span.icon-filter-arrow

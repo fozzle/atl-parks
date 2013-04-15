@@ -9,6 +9,9 @@ angular.module('parkFind.controllers', [
     '$location',
 
     function ($scope, $location) {
+      $scope.search = [];
+      $scope.q = '';
+
       $scope.parks = [];
 
       $scope.zoom = 13;
@@ -17,113 +20,104 @@ angular.module('parkFind.controllers', [
         lng: -84.3881
       };
 
-      $scope.amenities = [
-        {
-          'name': 'pavilions',
-          'active': false,
-          'translation': 'Pavilions'
+      $scope.amenities = {
+        'pavilions': {
+          'translation': 'Pavilions',
+          'active': false
         },
-        {
-          'name': 'playgrounds',
-          'active': false,
-          'translation': 'Playgrounds'
+        'playgrounds': {
+          'translation': 'Playgrounds',
+          'active': false
         },
-        {
-          'name': 'picnic_tables',
-          'active': false,
-          'translation': 'Picnic Tables'
+        'picnic_tables': {
+          'translation': 'Picnic Tables',
+          'active': false
         },
-        {
-          'name': 'picnic_shelters',
-          'active': false,
-          'translation': 'Picnic Shelters'
+        'picnic_shelters': {
+          'translation': 'Picnic Shelters',
+          'active': false
         },
-        {
-          'name': 'gazebos',
-          'active': false,
-          'translation': 'Gazebo'
+        'gazebos': {
+          'translation': 'Gazebo',
+          'active': false
         },
-        {
-          'name': 'restrooms',
-          'active': false,
-          'translation': 'Restrooms'
+        'restrooms': {
+          'translation': 'Restrooms',
+          'active': false
         },
-        {
-          'name': 'parking_spaces',
-          'active': false,
-          'translation': 'Parking Spaces'
+        'parking_spaces': {
+          'translation': 'Parking Spaces',
+          'active': false
         },
-        {
-          'name': 'grill',
-          'active': false,
-          'translation': 'Grills'
+        'grill': {
+          'translation': 'Grills',
+          'active': false
         },
-        {
-          'name': 'ball_fields',
-          'active': false,
-          'translation': 'Baseball'
+        'ball_fields': {
+          'translation': 'Baseball',
+          'active': false
         },
-        {
-          'name': 'soccer_fields',
-          'active': false,
-          'translation': 'Soccer'
+        'soccer_fields': {
+          'translation': 'Soccer',
+          'active': false
         },
-        {
-          'name': 'tennis_courts',
-          'active': false,
-          'translation': 'Tennis'
+        'tennis_courts': {
+          'translation': 'Tennis',
+          'active': false
         },
-        {
-          'name': 'basketball_courts',
-          'active': false,
-          'translation': 'Basketball'
+        'basketball_courts': {
+          'translation': 'Basketball',
+          'active': false
         },
-        {
-          'name': 'volleyball_courts',
-          'active': false,
-          'translation': 'Volleyball'
+        'volleyball_courts': {
+          'translation': 'Volleyball',
+          'active': false
         },
-        {
-          'name': 'pool',
-          'active': false,
-          'translation': 'Pool'
+        'pool': {
+          'translation': 'Pool',
+          'active': false
         },
-        {
-          'name': 'gym',
-          'active': false,
-          'translation': 'Gym/Rec Center'
+        'gym': {
+          'translation': 'Gym/Rec Center',
+          'active': false
         },
-        {
-          'name': 'dog_park',
-          'active': false,
-          'translation': 'Dog Park'
+        'dog_park': {
+          'translation': 'Dog Park',
+          'active': false
         },
-        {
-          'name': 'track',
-          'active': false,
-          'translation': 'Track'
+        'track': {
+          'translation': 'Track',
+          'active': false
         },
-        {
-          'name': 'nat',
-          'active': false,
-          'translation': 'Natatorium'
+        'nat': {
+          'translation': 'Natatorium',
+          'active': false
         },
-        {
-          'name': 'golf',
-          'active': false,
-          'translation': 'Golf Course'
+        'golf': {
+          'translation': 'Golf Course',
+          'active': false
         },
-        {
-          'name': 'unpaved_trails',
-          'active': false,
-          'translation': 'Unpaved Trails'
+        'unpaved_trails': {
+          'translation': 'Unpaved Trails',
+          'active': false
         },
-        {
-          'name': 'paved_trails',
-          'active': false,
-          'translation': 'Paved Trails' 
+        'paved_trails': {
+          'translation': 'Paved Trails',
+          'active': false
         }
-      ]
+      };
+
+      $scope.amenityToggled = function (name) {
+        $location.path('/parks');
+
+        if ($scope.amenities[name]['active']) {
+          $location.search(name, 'true');
+        } else {
+          $location.search(name, null);
+        }
+
+        $scope.search = $location.search();
+      }
 
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -140,9 +134,17 @@ angular.module('parkFind.controllers', [
     '$scope',
     '$rootScope',
     '$location',
+    'Parks',
 
-    function ($scope, $rootScope, $location) {
-
+    function ($scope, $rootScope, $location, Parks) {
+      if (!angular.equals($scope.search, $location.search())) {
+        $scope.search = $location.search();
+        angular.forEach($scope.search, function (value, amenity) {
+          if ($scope.amenities[amenity] !== undefined && value === 'true') {
+            $scope.amenities[amenity].active = true;
+          }
+        })
+      }
     }
   ])
 
