@@ -5,8 +5,8 @@
     %div{"ng-view" => ""}
 %section#overview
   %form#filter{"ng-submit" => "doSearch()"}
-    #form-search.form-section
-      %input.form-label{:name => "q", "ng-model" => "q", :placeholder => "Search", :type => "text"}/
+    #form-search.form-section{"ng-class" => "{focused: focused}"}
+      %input.form-label{:name => "q", "ng-model" => "q", :placeholder => "Search", :type => "text", "on-focus" => "focused=true", "on-blur" => "focused=false"}/
       %button.form-arrow{:type => "submit"}
         %span.icon-search-arrow
     #form-resources.form-section{"ng-class" => "{open: open}"}

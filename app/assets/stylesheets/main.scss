@@ -158,8 +158,11 @@ input, button {
   width: 40%;
 }
 
+.focused .icon-search-arrow:before {
+  color: $cream;
+}
+
 #form-resources {
-  font-size: 1.2em;
   line-height: normal;
   width: 60%;
 
@@ -174,6 +177,7 @@ input, button {
   position: relative;
   height: 100%;
   float: left;
+  font-size: 1.2rem;
 
   input:focus {
     background: $black;

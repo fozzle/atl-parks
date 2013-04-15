@@ -5,6 +5,7 @@ var App = angular.module('parkFind', [
   'ngResource',
   'parkFind.services',
   'parkFind.filters',
+  'parkFind.directives',
   'parkFind.controllers'
 ]);
 
