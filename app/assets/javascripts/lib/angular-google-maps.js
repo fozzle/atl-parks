@@ -276,6 +276,68 @@
       this.getMarkerInstances = function () {
         return _markers;
       };
+
+      this.plotMap = function (name, id, latlongs) {
+            var map = _instance;
+            var park_plot = [];
+            if (!latlongs) return;
+            for (var i = 0; i < latlongs.length; i++) {
+                park_plot.push(new google.maps.LatLng(latlongs[i][1],latlongs[i][0]));
+            }
+
+            // Node
+            var randomNode = new google.maps.LatLng(latlongs[0][1], latlongs[0][0]);
+
+            // Construct the polygon
+            var park_polygon = new google.maps.Polygon({
+                paths: park_plot,
+                strokeColor: '#d93636',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#d93636',
+                fillOpacity: 0.35
+            });
+
+            park_polygon.setMap(map);
+
+            google.maps.event.addListener(park_polygon, 'click', function() {
+              console.log(park_polygon);
+                if (park_polygon.fillColor != '#D8662D') {
+                    this.setOptions({ fillColor: "#D8662D" });
+                    window.location.hash = id;
+                }
+                else {
+                    this.setOptions({ fillColor: "#756E66" });
+                }
+                ShowPark(id);
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+                content: name
+            });
+
+            /*var marker = new google.maps.Marker({
+                position: randomNode,
+                map: map,
+                title: name
+            });
+
+            google.maps.event.addListener(park_polygon, "mouseover", function() {
+                if (park_polygon.fillColor == '#d93636') {
+                    this.setOptions({ fillColor: "#756E66" });
+                }
+                infowindow.open(map, marker);
+            });
+
+            google.maps.event.addListener(park_polygon, "mouseout", function() {
+                if (park_polygon.fillColor == '#756E66') {
+                    this.setOptions({ fillColor: "#d93636" });
+                }
+                infowindow.close();
+            }); */
+   
+   
+        };
       
       this.removeMarkers = function (markerInstances) {
         
@@ -467,6 +529,7 @@
             angular.forEach(newValue, function (v, i) {
               if (!_m.hasMarker(v.latitude, v.longitude)) {
                 _m.addMarker(v.latitude, v.longitude, v.icon, v.infoWindow);
+                _m.plotMap(v.name, v.id, v.kml);
               }
             });
             
