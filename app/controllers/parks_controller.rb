@@ -7,7 +7,7 @@ class ParksController < ApplicationController
 
     begin
       page = Integer(params[:page])
-    rescue ArgumentError
+    rescue Exception
       page = 1
     end
 

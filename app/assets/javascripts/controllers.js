@@ -7,8 +7,9 @@ angular.module('parkFind.controllers', [
   .controller('ApplicationCtrl', [
     '$scope',
     '$location',
+    'Parks',
 
-    function ($scope, $location) {
+    function ($scope, $location, Parks) {
       $scope.search = [];
       $scope.q = '';
 
@@ -19,6 +20,17 @@ angular.module('parkFind.controllers', [
         lat: 33.7489,
         lng: -84.3881
       };
+
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            $scope.center = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+          }
+        )
+      }
 
       $scope.amenities = {
         'pavilions': {
@@ -107,26 +119,30 @@ angular.module('parkFind.controllers', [
         }
       };
 
+      $scope.doSearch = function() {
+        $scope.search['q'] = $scope.q;
+        $location.search('q', $scope.q);
+
+        $location.path('/parks');
+        $scope.$broadcast('search:changed');
+      };
+
       $scope.amenityToggled = function (name) {
         $location.path('/parks');
 
-        if ($scope.amenities[name]['active']) {
+        if ($scope.amenities[name].active) {
           $location.search(name, 'true');
         } else {
           $location.search(name, null);
         }
 
         $scope.search = $location.search();
+        $scope.$broadcast('search:changed');
       }
 
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function (position) {
-            $scope.center.lat = position.coords.latitude;
-            $scope.center.lng = position.coords.latitude;
-          }
-        )
-      }
+      $scope.$on('search:changed', function() {
+        $scope.parks = Parks.query($scope.search);
+      })
     }
   ])
 
@@ -139,11 +155,16 @@ angular.module('parkFind.controllers', [
     function ($scope, $rootScope, $location, Parks) {
       if (!angular.equals($scope.search, $location.search())) {
         $scope.search = $location.search();
+        $scope.q = $location.search()['q'];
+        $rootScope.$broadcast('search:changed');
+
         angular.forEach($scope.search, function (value, amenity) {
           if ($scope.amenities[amenity] !== undefined && value === 'true') {
             $scope.amenities[amenity].active = true;
           }
         })
+      } else if ($scope.parks.length == 0) {
+        $rootScope.$broadcast('search:changed');
       }
     }
   ])
