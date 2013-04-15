@@ -337,8 +337,10 @@
         
         angular.forEach(markerInstances, function (index) {
           _markers[index].setMap(null);
+          _polygons[index].setMap(null);
           // Remove from local arrays
           delete _markers[index];
+          delete _polygons[index];
           delete s.markers[index];
         });
       };
