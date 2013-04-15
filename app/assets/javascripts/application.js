@@ -15,5 +15,6 @@
 //= require lib/angular-resource.min.js
 //= require lib/angular-google-maps.js
 //= require services.js
+//= require filters.js
 //= require controllers.js
 //= require main.js

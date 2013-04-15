@@ -4,6 +4,7 @@ var App = angular.module('parkFind', [
   'google-maps',
   'ngResource',
   'parkFind.services',
+  'parkFind.filters',
   'parkFind.controllers'
 ]);
 
