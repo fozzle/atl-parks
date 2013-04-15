@@ -173,10 +173,17 @@ angular.module('parkFind.controllers', [
   .controller('ParkDetailsCtrl', [
     '$scope',
     '$rootScope',
+    '$routeParams',
     '$location',
     'Park',
 
-    function ($scope, $rootScope, $location, Park) {
+    function ($scope, $rootScope, $routeParams, $location, Park) {
+      $scope.park = Park.get({
+        parkId: $routeParams.parkId
+      });
 
+      if ($rootScope.parks.length == 0) {
+        $rootScope.parks = [$scope.park];
+      }
     }
   ]);
