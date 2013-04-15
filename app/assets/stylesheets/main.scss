@@ -66,7 +66,7 @@ a {
   position: absolute;
   top: 0;
   bottom: 0;
-  margin-top: 247px;
+  margin-top: 251px;
   overflow-y: scroll;
   overflow-x: visible;
 
@@ -77,13 +77,13 @@ a {
 }
 
 #logo {
-  display: block;
+  line-height: 0;
 }
 
 #overview {
   display: block;
   position: absolute;
-  top: 247px;
+  top: 251px;
   right: 0;
   bottom: 0;
   left: 340px;

@@ -1,5 +1,6 @@
 %header#page-header
-  = image_tag('logo.png', :alt => 'Park Find - City of Atlanta', :id => 'logo')
+  = link_to root_path do
+    = image_tag('logo.png', :alt => 'Park Find - City of Atlanta', :id => 'logo')
 %nav#navigation{:role => "main"}
   .nav-inner
     %div{"ng-view" => ""}
