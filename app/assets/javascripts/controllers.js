@@ -29,6 +29,8 @@ angular.module('parkFind.controllers', [
               lat: position.coords.latitude,
               lng: position.coords.longitude
             }
+
+            $rootScope.$apply();
           }
         )
       }
