@@ -187,8 +187,9 @@
         });
       };
       
-      this.addMarker = function (parkId, lat, lng, icon, infoWindowContent, label, url,
+      this.addMarker = function (parkId, lat, lng, url, icon, infoWindowContent, label,
           thumbnail) {
+        var that = this;
         
         if (that.findMarker(lat, lng) != null) {
           return;
@@ -198,6 +199,11 @@
           position: new google.maps.LatLng(lat, lng),
           map: _instance,
           icon: icon,
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          that.$location.path('/parks/' + parkId);
+          that.$scope.$apply();
         });
         
         if (label) {
@@ -316,19 +322,19 @@
                 content: name
             });
 
-            google.maps.event.addListener(park_polygon, "mouseover", function() {
-                if (park_polygon.fillColor == '#d93636') {
+            google.maps.event.addListener(_markers[parkId], "mouseover", function() {
+                /*if (park_polygon.fillColor == '#d93636') {
                     this.setOptions({ fillColor: "#756E66" });
-                }
+                }*/
                 infowindow.open(map, _markers[parkId]);
             });
 
-            google.maps.event.addListener(park_polygon, "mouseout", function() {
-                if (park_polygon.fillColor == '#756E66') {
+            google.maps.event.addListener(_markers[parkId], "mouseout", function() {
+                /*if (park_polygon.fillColor == '#756E66') {
                     this.setOptions({ fillColor: "#d93636" });
-                }
+                }*/
                 infowindow.close();
-            }); 
+            });
         };
       
       this.removeMarkers = function (markerInstances) {
