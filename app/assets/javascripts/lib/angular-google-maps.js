@@ -310,8 +310,8 @@
   /**
    * Map directive
    */
-  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", function ($log, $timeout, 
-      $filter) {
+  googleMapsModule.directive("googleMap", ["$log", "$timeout", "$filter", "$location", function ($log, $timeout, 
+      $filter, $location) {
 
     var controller = function ($scope, $element) {
       
