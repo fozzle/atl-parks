@@ -11,8 +11,8 @@
         %span.icon-search-arrow
     #form-resources.form-section{"ng-class" => "{open: open}"}
       .form-dropdown
-        %ul
-          %li{ "ng-repeat" => "(name, amenity) in amenities" }
+        %ul.amenity-list
+          %li.amenity{ "ng-repeat" => "(name, amenity) in amenities" }
             %input{:name => "{{name}}", :id => "{{name}}", "ng-model" => "amenity.active", :type => "checkbox", 'ng-click' => 'amenityToggled(name)'}/
             %label{:class => "icon-{{name}}", :for => "{{name}}"} {{amenity.translation}}
       %button.form-label{"ng-click" => "open=!open", :type => "button"} Select Resources
