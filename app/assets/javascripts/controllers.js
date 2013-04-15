@@ -6,17 +6,18 @@ angular.module('parkFind.controllers', [
 
   .controller('ApplicationCtrl', [
     '$scope',
+    '$rootScope',
     '$location',
     'Parks',
 
-    function ($scope, $location, Parks) {
-      $scope.search = [];
-      $scope.q = '';
+    function ($scope, $rootScope, $location, Parks) {
+      $rootScope.search = [];
+      $rootScope.q = '';
 
-      $scope.parks = [];
+      $rootScope.parks = [];
 
-      $scope.zoom = 13;
-      $scope.center = {
+      $rootScope.zoom = 13;
+      $rootScope.center = {
         lat: 33.7489,
         lng: -84.3881
       };
@@ -32,7 +33,7 @@ angular.module('parkFind.controllers', [
         )
       }
 
-      $scope.amenities = {
+      $rootScope.amenities = {
         'pavilions': {
           'translation': 'Pavilions',
           'active': false
@@ -154,8 +155,8 @@ angular.module('parkFind.controllers', [
 
     function ($scope, $rootScope, $location, Parks) {
       if (!angular.equals($scope.search, $location.search())) {
-        $scope.search = $location.search();
-        $scope.q = $location.search()['q'];
+        $rootScope.search = $location.search();
+        $rootScope.q = $location.search()['q'];
         $rootScope.$broadcast('search:changed');
 
         angular.forEach($scope.search, function (value, amenity) {
