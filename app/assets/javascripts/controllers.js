@@ -35,7 +35,7 @@ angular.module('parkFind.controllers', [
         )
       }
 
-      $rootScope.amenities = {
+      $scope.amenities = {
         'pavilions': {
           'translation': 'Pavilions',
           'active': false
@@ -162,8 +162,9 @@ angular.module('parkFind.controllers', [
         $rootScope.$broadcast('search:changed');
 
         angular.forEach($scope.search, function (value, amenity) {
-          if ($rootScope.amenities[amenity] !== undefined && value === 'true') {
-            $rootScope.amenities[amenity].active = true;
+          if ($scope.amenities[amenity] !== undefined && value === 'true') {
+            $scope.amenities[amenity].active = true;
+            $scope.$apply();
           }
         })
       } else if ($scope.parks.length == 0) {
