@@ -2,7 +2,7 @@
   %li{"ng-show" => "!parks.length"}
     %h2.park-name No results found.
   %li{"ng-repeat" => "park in parks"}
-    %a{"ng-href" => "/park/{{park.id}}"}
+    %a{"ng-href" => "/parks/{{park.id}}"}
       %span.index
         {{$index + 1}}.
       %h2.park-name {{park.name}}
