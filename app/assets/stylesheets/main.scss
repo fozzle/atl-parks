@@ -60,14 +60,13 @@ a {
 }
 
 #navigation {
-  width: 340px;
+  width: 300px;
   padding: 20px;
-  box-sizing: border-box;
   float: left;
   position: absolute;
   top: 0;
   bottom: 0;
-  margin-top: 251px;
+  margin-top: 247px;
   overflow-y: scroll;
   overflow-x: visible;
 
@@ -77,10 +76,14 @@ a {
   }
 }
 
+#logo {
+  display: block;
+}
+
 #overview {
   display: block;
   position: absolute;
-  top: 251px;
+  top: 247px;
   right: 0;
   bottom: 0;
   left: 340px;
@@ -127,6 +130,7 @@ input, button {
   border: none;
   background-color: $cream;
   padding: 15px;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
 }
@@ -165,6 +169,7 @@ input, button {
 }
 
 .form-section {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
   height: 100%;
@@ -237,6 +242,7 @@ input, button {
   }
 
   label {
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
     display: block;
@@ -244,19 +250,29 @@ input, button {
   }
 
   ul {
-    background-color: mix($black, $green, 10%);
-    width: 32%;
+    @include clearfix;
     padding: 0;
-    margin: 0 2%;
-    float: left;
-
-    &:first-child, &:last-child {
-      margin: 0;
-    }
+    margin: 0;
   }
 
-  li {
+  .amenity {
+    width: 32%;
+    margin: 0 2%;
+    float: left;
+    background-color: mix($black, $green, 10%);
     display: block;
+
+    &:nth-child(3n+4) {
+      clear: left;
+    }
+
+    &:nth-child(3n+1), &:nth-child(3n) {
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: $dark-green;
+    }
   }
 }
 
