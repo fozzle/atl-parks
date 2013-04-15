@@ -24,7 +24,7 @@ App.config([
       .when('/parks', {
         templateUrl: '/assets/templates/park.list.html',
         controller: 'ParkListCtrl',
-        reloadOnSearch: false
+        reloadOnSearch: true
       })
       .otherwise({
         redirectTo: '/'
