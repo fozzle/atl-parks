@@ -295,7 +295,7 @@
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: '#d93636',
-                fillOpacity: 0.35
+                fillOpacity: 0.9
             });
 
             park_polygon.setMap(map);

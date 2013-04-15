@@ -29,6 +29,8 @@ angular.module('parkFind.controllers', [
               lat: position.coords.latitude,
               lng: position.coords.longitude
             }
+
+            $scope.$apply();
           }
         )
       }
@@ -160,8 +162,8 @@ angular.module('parkFind.controllers', [
         $rootScope.$broadcast('search:changed');
 
         angular.forEach($scope.search, function (value, amenity) {
-          if ($scope.amenities[amenity] !== undefined && value === 'true') {
-            $scope.amenities[amenity].active = true;
+          if ($rootScope.amenities[amenity] !== undefined && value === 'true') {
+            $rootScope.amenities[amenity].active = true;
           }
         })
       } else if ($scope.parks.length == 0) {
