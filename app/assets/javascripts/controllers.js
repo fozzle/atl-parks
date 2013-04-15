@@ -25,12 +25,10 @@ angular.module('parkFind.controllers', [
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function (position) {
-            $scope.center = {
+            $rootScope.center = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             }
-
-            $scope.$apply();
           }
         )
       }
@@ -183,6 +181,11 @@ angular.module('parkFind.controllers', [
     function ($scope, $rootScope, $routeParams, $location, Park) {
       $scope.park = Park.get({
         parkId: $routeParams.parkId
+      }, function (data) {
+        $rootScope.center = {
+          lat: data.latitude,
+          lng: data.longitude
+        }
       });
 
       if ($rootScope.parks.length == 0) {
