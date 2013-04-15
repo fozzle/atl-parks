@@ -63,7 +63,8 @@
     function PrivateMapModel(opts) {
       
       var _instance = null,
-        _markers = [],  // caches the instances of google.maps.Marker
+        _markers = {},  // caches the instances of google.maps.Marker
+        _polygons = {}, // caches the instances of google.maps.Polygon
         _handlers = [], // event handlers
         _windows = [],  // InfoWindow objects
         o = angular.extend({}, _defaults, opts),
@@ -75,7 +76,7 @@
       this.draggable = o.draggable;
       this.dragging = false;
       this.selector = o.container;
-      this.markers = [];
+      this.markers = {};
       this.options = o.options;
       
       this.draw = function () {
@@ -161,7 +162,7 @@
       };
       
       this.fit = function () {
-        if (_instance && _markers.length) {
+        if (_instance && Object.keys(_markers).length) {
           
           var bounds = new google.maps.LatLngBounds();
           
@@ -180,7 +181,7 @@
         });
       };
       
-      this.addMarker = function (lat, lng, icon, infoWindowContent, label, url,
+      this.addMarker = function (parkId, lat, lng, icon, infoWindowContent, label, url,
           thumbnail) {
         
         if (that.findMarker(lat, lng) != null) {
@@ -190,7 +191,7 @@
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat, lng),
           map: _instance,
-          icon: icon
+          icon: icon,
         });
         
         if (label) {
@@ -216,10 +217,10 @@
         }
         
         // Cache marker 
-        _markers.unshift(marker);
+        _markers[parkId] = marker;
         
         // Cache instance of our marker for scope purposes
-        that.markers.unshift({
+        /*that.markers[parkId] = ({
           "lat": lat,
           "lng": lng,
           "draggable": false,
@@ -228,7 +229,7 @@
           "label": label,
           "url": url,
           "thumbnail": thumbnail
-        });
+        });*/
         
         // Return marker instance
         return marker;
@@ -277,16 +278,13 @@
         return _markers;
       };
 
-      this.plotMap = function (name, id, latlongs) {
+      this.plotMap = function (parkId, name, latlongs) {
             var map = _instance;
             var park_plot = [];
             if (!latlongs) return;
             for (var i = 0; i < latlongs.length; i++) {
                 park_plot.push(new google.maps.LatLng(latlongs[i][1],latlongs[i][0]));
             }
-
-            // Node
-            var randomNode = new google.maps.LatLng(latlongs[0][1], latlongs[0][0]);
 
             // Construct the polygon
             var park_polygon = new google.maps.Polygon({
@@ -295,10 +293,11 @@
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: '#d93636',
-                fillOpacity: 0.9
+                fillOpacity: 0.9,
+                map: map
             });
 
-            park_polygon.setMap(map);
+            _polygons[parkId] = park_polygon;
 
             google.maps.event.addListener(park_polygon, 'click', function() {
               console.log(park_polygon);
@@ -309,7 +308,6 @@
                 else {
                     this.setOptions({ fillColor: "#756E66" });
                 }
-                ShowPark(id);
             });
 
             var infowindow = new google.maps.InfoWindow({
@@ -343,18 +341,11 @@
         
         var s = this;
         
-        angular.forEach(markerInstances, function (v, i) {
-          var pos = v.getPosition(),
-            lat = pos.lat(),
-            lng = pos.lng(),
-            index = s.findMarkerIndex(lat, lng);
-          
+        angular.forEach(markerInstances, function (index) {
+          _markers[index].setMap(null);
           // Remove from local arrays
-          _markers.splice(index, 1);
-          s.markers.splice(index, 1);
-          
-          // Remove from map
-          v.setMap(null);
+          delete _markers[index];
+          delete s.markers[index];
         });
       };
     }
@@ -528,8 +519,8 @@
             
             angular.forEach(newValue, function (v, i) {
               if (!_m.hasMarker(v.latitude, v.longitude)) {
-                _m.addMarker(v.latitude, v.longitude, v.icon, v.infoWindow);
-                _m.plotMap(v.name, v.id, v.kml);
+                _m.addMarker(v.id, v.latitude, v.longitude, v.icon, v.infoWindow);
+                _m.plotMap(v.id, v.name, v.id, v.kml);
               }
             });
             
@@ -537,16 +528,10 @@
             var orphaned = [];
             
             angular.forEach(_m.getMarkerInstances(), function (v, i) {
-              // Check our scope if a marker with equal latitude and longitude. 
-              // If not found, then that marker has been removed form the scope.
-              
-              var pos = v.getPosition(),
-                lat = pos.lat(),
-                lng = pos.lng(),
-                found = false;
+              var found = false;
               
               // Test against each marker in the scope
-              for (var si = 0; si < scope.markers.length; si++) {
+              /*for (var si = 0; si < scope.markers.length; si++) {
                 
                 var sm = scope.markers[si];
                 
@@ -554,11 +539,17 @@
                   // Map marker is present in scope too, don't remove
                   found = true;
                 }
-              }
+              }*/
+
+              angular.forEach(scope.markers, function (park) {
+                if (park.id == i) {
+                  found = true;
+                }
+              });
               
               // Marker in map has not been found in scope. Remove.
               if (!found) {
-                orphaned.push(v);
+                orphaned.push(i);
               }
             });
 
