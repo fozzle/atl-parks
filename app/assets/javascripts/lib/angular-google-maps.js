@@ -78,6 +78,12 @@
       this.selector = o.container;
       this.markers = {};
       this.options = o.options;
+      this.$location = opts.$location;
+      this.$scope = opts.$scope;
+
+      this.panTo = function (center) {
+        _instance.panTo(center);
+      }
       
       this.draw = function () {
         
@@ -279,8 +285,10 @@
       };
 
       this.plotMap = function (parkId, name, latlongs) {
-            var map = _instance;
-            var park_plot = [];
+            var that = this,
+                map = _instance,
+                park_plot = [];
+            
             if (!latlongs) return;
             for (var i = 0; i < latlongs.length; i++) {
                 park_plot.push(new google.maps.LatLng(latlongs[i][1],latlongs[i][0]));
@@ -289,42 +297,30 @@
             // Construct the polygon
             var park_polygon = new google.maps.Polygon({
                 paths: park_plot,
-                strokeColor: '#d93636',
+                strokeColor: '#d8662d',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#d93636',
-                fillOpacity: 0.9,
-                map: map
+                fillColor: '#d8662d',
+                fillOpacity: 1,
             });
 
+            park_polygon.setMap(map);
             _polygons[parkId] = park_polygon;
 
             google.maps.event.addListener(park_polygon, 'click', function() {
-              console.log(park_polygon);
-                if (park_polygon.fillColor != '#D8662D') {
-                    this.setOptions({ fillColor: "#D8662D" });
-                    window.location.hash = id;
-                }
-                else {
-                    this.setOptions({ fillColor: "#756E66" });
-                }
+              that.$location.path('/parks/' + parkId);
+              that.$scope.$apply();
             });
 
             var infowindow = new google.maps.InfoWindow({
                 content: name
             });
 
-            /*var marker = new google.maps.Marker({
-                position: randomNode,
-                map: map,
-                title: name
-            });
-
             google.maps.event.addListener(park_polygon, "mouseover", function() {
                 if (park_polygon.fillColor == '#d93636') {
                     this.setOptions({ fillColor: "#756E66" });
                 }
-                infowindow.open(map, marker);
+                infowindow.open(map, _markers[parkId]);
             });
 
             google.maps.event.addListener(park_polygon, "mouseout", function() {
@@ -332,9 +328,7 @@
                     this.setOptions({ fillColor: "#d93636" });
                 }
                 infowindow.close();
-            }); */
-   
-   
+            }); 
         };
       
       this.removeMarkers = function (markerInstances) {
@@ -401,7 +395,7 @@
             (!angular.isDefined(scope.center.lat) || 
                 !angular.isDefined(scope.center.lng))) {
         	
-          $log.error("angular-google-maps: ould not find a valid center property");          
+          $log.error("angular-google-maps: could not find a valid center property");          
           return;
         }
         
@@ -423,7 +417,9 @@
           container: element[0],            
           center: new google.maps.LatLng(scope.center.lat, scope.center.lng),              
           draggable: attrs.draggable == "true",
-          zoom: scope.zoom
+          zoom: scope.zoom,
+          $location: $location,
+          $scope: scope
         }));       
       
         _m.on("drag", function () {
@@ -452,7 +448,7 @@
           }
         });
       
-        _m.on("center_changed", function () {
+        _m.on("idle", function () {
           var c = _m.center;
         
           $timeout(function () {
@@ -520,7 +516,7 @@
             angular.forEach(newValue, function (v, i) {
               if (!_m.hasMarker(v.latitude, v.longitude)) {
                 _m.addMarker(v.id, v.latitude, v.longitude, v.icon, v.infoWindow);
-                _m.plotMap(v.id, v.name, v.id, v.kml);
+                _m.plotMap(v.id, v.name, v.kml);
               }
             });
             
@@ -572,8 +568,8 @@
           }
           
           if (!_m.dragging) {
-            _m.center = new google.maps.LatLng(newValue.lat, 
-                newValue.lng);          
+            _m.panTo(new google.maps.LatLng(newValue.lat, 
+                newValue.lng));
             _m.draw();
           }
         }, true);

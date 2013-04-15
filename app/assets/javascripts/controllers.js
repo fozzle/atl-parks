@@ -164,9 +164,8 @@ angular.module('parkFind.controllers', [
         angular.forEach($scope.search, function (value, amenity) {
           if ($scope.amenities[amenity] !== undefined && value === 'true') {
             $scope.amenities[amenity].active = true;
-            $scope.$apply();
           }
-        })
+        });
       } else if ($scope.parks.length == 0) {
         $rootScope.$broadcast('search:changed');
       }
@@ -181,6 +180,8 @@ angular.module('parkFind.controllers', [
     'Park',
 
     function ($scope, $rootScope, $routeParams, $location, Park) {
+      var parksEmpty = ($rootScope.parks.length == 0);
+      
       $scope.park = Park.get({
         parkId: $routeParams.parkId
       }, function (data) {
