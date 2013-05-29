@@ -2,6 +2,7 @@
 
 var App = angular.module('parkFind', [
   'google-maps',
+  'infinite-scroll',
   'ngResource',
   'parkFind.services',
   'parkFind.filters',

@@ -1,22 +1,23 @@
 %header#page-header
   = link_to root_path do
     = image_tag('logo.png', :alt => 'Park Find - City of Atlanta', :id => 'logo')
-%nav#navigation{:role => "main"}
+%nav#navigation{:role => "main", "infinite-scroll" => "nextPage()", "infinite-scroll-disabled" => "network.polling", "infinite-scroll-distance" => "1"}
   .nav-inner
     %div{"ng-view" => ""}
+    %p{"ng-show" => "network.polling"} Loading...
 %section#overview
   %form#filter{"ng-submit" => "doSearch()"}
     #form-search.form-section{"ng-class" => "{focused: focused}"}
       %input.form-label{:name => "q", "ng-model" => "state.q", :placeholder => "Search", :type => "text", "on-focus" => "focused=true", "on-blur" => "focused=false"}/
       %button.form-arrow{:type => "submit"}
         %span.icon-search-arrow
-    #form-resources.form-section{"ng-class" => "{open: open}"}
+    #form-resources.form-section{"ng-class" => "{open: state.open}"}
       .form-dropdown
         %ul.amenity-list
           %li.amenity{ "ng-repeat" => "(name, amenity) in state.amenities" }
             %input{:name => "{{name}}", :id => "{{name}}", "ng-model" => "state.amenities[name].active", :type => "checkbox", 'ng-click' => 'amenityToggled(name)'}/
             %label{:class => "icon-{{name}}", :for => "{{name}}"} {{amenity.translation}}
-      %button.form-label{"ng-click" => "open=!open", :type => "button"} Select Resources
-      %button.form-arrow{"ng-click" => "open=!open", :style => "font-size: 0.5em;", :type => "button"}
+      %button.form-label{"ng-click" => "state.open=!state.open", :type => "button"} Select Resources
+      %button.form-arrow{"ng-click" => "state.open=!state.open", :style => "font-size: 0.5em;", :type => "button"}
         %span.icon-filter-arrow
   <google-map id="map" fit="true" center="state.center" draggable="true" zoom="state.zoom" markers="state.parks"></google-map>

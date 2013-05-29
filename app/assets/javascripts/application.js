@@ -14,6 +14,7 @@
 //= require lib/angular.min.js
 //= require lib/angular-resource.min.js
 //= require lib/angular-google-maps.js
+//= require lib/ng-infinite-scroll.js
 //= require services.js
 //= require filters.js
 //= require directives.js

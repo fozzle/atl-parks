@@ -9,8 +9,9 @@ angular.module('parkFind.controllers', [
     '$rootScope',
     '$location',
     'Parks',
+    '$document',
 
-    function ($scope, $rootScope, $location, Parks) {
+    function ($scope, $rootScope, $location, Parks, $document) {
       $scope.state = {};
       $scope.state.search = [];
       $scope.state.q = '';
@@ -110,6 +111,8 @@ angular.module('parkFind.controllers', [
         }
       };
 
+      $scope.state.open = false;
+
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function (position) {
@@ -121,6 +124,12 @@ angular.module('parkFind.controllers', [
             $scope.$apply();
           }
         )
+      }
+
+      $scope.nextPage = function() {
+        if ($rootScope.network.polling) return;
+        $scope.state.search['page'] += 1;
+        $scope.$broadcast('search:paged');
       }
 
       $scope.doSearch = function() {
@@ -140,13 +149,32 @@ angular.module('parkFind.controllers', [
           $location.search(name, null);
         }
 
-        $scope.state.search = $location.search();
+        $scope.state.search = angular.copy($location.search());
         $scope.$broadcast('search:changed');
       }
 
+      $scope.$on('amenities:close', function () {
+        $scope.state.open = false;
+        $scope.$apply();
+      });
+
       $scope.$on('search:changed', function() {
         $scope.state.parks = Parks.query($scope.state.search);
-      })
+      });
+
+      $scope.$on('search:paged', function() {
+        Parks.query($scope.state.search, function(data) {
+          angular.forEach(data, function (park) {
+            $scope.state.parks.push(park);
+          });
+        });
+      });
+
+      $document.bind('click', function (evt) {
+        if(evt.target['form'] === undefined) {
+          $rootScope.$broadcast('amenities:close') 
+        }
+      });
     }
   ])
 
@@ -157,8 +185,10 @@ angular.module('parkFind.controllers', [
     'Parks',
 
     function ($scope, $rootScope, $location, Parks) {
+      $scope.state.search['page'] = 1;
+
       if (!angular.equals($scope.state.search, $location.search())) {
-        $scope.state.search = $location.search();
+        $scope.state.search = angular.copy($location.search());
         $scope.state.q = $location.search()['q'];
         $rootScope.$broadcast('search:changed');
 

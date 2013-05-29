@@ -24,15 +24,20 @@ angular.module('parkFind.services', [
     '$rootScope',
 
     function ($q, $window, $rootScope) {
+      $rootScope.network = {
+        polling: false,
+        error: false
+      }
+
       return function (promise) {
-        $rootScope.polling = true;
+        $rootScope.network.polling = true;
         
         return promise.then(function (response) {
-          $rootScope.polling = false;
+          $rootScope.network.polling = false;
           return response;
         }, function (response) {
-          $rootScope.polling = false;
-          $rootScope.network_error = true;
+          $rootScope.network.polling = false;
+          $rootScope.network.error = true;
           return $q.reject(response);
         });
       };

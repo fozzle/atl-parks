@@ -8,7 +8,6 @@ angular.module('parkFind.directives', [
       return {
           restrict: 'A',
           link: function(scope, elm, attrs) {
-            console.log('hi');
               elm.bind('focus', function() {
                   scope.$apply(attrs.onFocus);
               });
@@ -20,7 +19,6 @@ angular.module('parkFind.directives', [
       return {
           restrict: 'A',
           link: function(scope, elm, attrs) {
-            console.log('bye');
               elm.bind('blur', function() {
                   scope.$apply(attrs.onBlur);
               });
