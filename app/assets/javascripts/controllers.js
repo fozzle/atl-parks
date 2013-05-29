@@ -14,6 +14,7 @@ angular.module('parkFind.controllers', [
     function ($scope, $rootScope, $location, Parks, $document) {
       $scope.state = {};
       $scope.state.search = [];
+      $scope.state.search['page'] = 1;
       $scope.state.q = '';
 
       $scope.state.parks = [];
@@ -127,8 +128,8 @@ angular.module('parkFind.controllers', [
       }
 
       $scope.nextPage = function() {
-        if ($rootScope.network.polling) return;
         $scope.state.search['page'] += 1;
+        console.log($scope.state.search['page']);
         $scope.$broadcast('search:paged');
       }
 
@@ -150,6 +151,7 @@ angular.module('parkFind.controllers', [
         }
 
         $scope.state.search = angular.copy($location.search());
+        $scope.state.search['page'] = 1;
         $scope.$broadcast('search:changed');
       }
 
@@ -167,6 +169,8 @@ angular.module('parkFind.controllers', [
           angular.forEach(data, function (park) {
             $scope.state.parks.push(park);
           });
+        }, function(data) {
+          $scope.state.search['page'] -= 1;
         });
       });
 
@@ -185,10 +189,9 @@ angular.module('parkFind.controllers', [
     'Parks',
 
     function ($scope, $rootScope, $location, Parks) {
-      $scope.state.search['page'] = 1;
-
       if (!angular.equals($scope.state.search, $location.search())) {
         $scope.state.search = angular.copy($location.search());
+        $scope.state.search['page'] = 1;
         $scope.state.q = $location.search()['q'];
         $rootScope.$broadcast('search:changed');
 

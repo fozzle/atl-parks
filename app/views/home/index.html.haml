@@ -4,7 +4,7 @@
 %nav#navigation{:role => "main", "infinite-scroll" => "nextPage()", "infinite-scroll-disabled" => "network.polling", "infinite-scroll-distance" => "1"}
   .nav-inner
     %div{"ng-view" => ""}
-    %p{"ng-show" => "network.polling"} Loading...
+  %p{"ng-show" => "network.polling"} Loading...
 %section#overview
   %form#filter{"ng-submit" => "doSearch()"}
     #form-search.form-section{"ng-class" => "{focused: focused}"}
