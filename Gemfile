@@ -5,13 +5,7 @@ gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :production do
-	gem 'pg'
-end
-
-group :development do
-  gem 'sqlite3'
-end
+gem 'pg'
 
 gem 'thin'
 gem 'texticle', "2.0", :require => 'texticle/rails'
@@ -34,7 +28,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'angularjs-rails-resource'
 gem 'geocoder'
 
 gem 'devise'
