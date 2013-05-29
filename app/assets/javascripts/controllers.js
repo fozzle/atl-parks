@@ -131,7 +131,7 @@ angular.module('parkFind.controllers', [
       $scope.nextPage = function() {
         if ($scope.state.pagingDisabled) return;
         $scope.state.search['page'] += 1;
-        $scope.$broadcast('search:paged');
+        $rootScope.$broadcast('search:paged');
       }
 
       $scope.doSearch = function() {
@@ -166,19 +166,6 @@ angular.module('parkFind.controllers', [
         $scope.state.pagingDisabled = false;
       });
 
-      $scope.$on('search:paged', function() {
-        Parks.query($scope.state.search, function(data) {
-          if (data.length === 0) {
-            $scope.state.search['page'] -= 1;
-            $scope.state.pagingDisabled = true;
-          } else {
-            angular.forEach(data, function (park) {
-              $scope.state.parks.push(park);
-            });
-          }
-        });
-      });
-
       $document.bind('click', function (evt) {
         if(evt.target['form'] === undefined) {
           $rootScope.$broadcast('amenities:close') 
@@ -194,6 +181,19 @@ angular.module('parkFind.controllers', [
     'Parks',
 
     function ($scope, $rootScope, $location, Parks) {
+      $scope.$on('search:paged', function() {
+        Parks.query($scope.state.search, function(data) {
+          if (data.length === 0) {
+            $scope.state.search['page'] -= 1;
+            $scope.state.pagingDisabled = true;
+          } else {
+            angular.forEach(data, function (park) {
+              $scope.state.parks.push(park);
+            });
+          }
+        });
+      });
+      
       if (!angular.equals($scope.state.search, $location.search())) {
         $scope.state.search = angular.copy($location.search());
         $scope.state.search['page'] = 1;
