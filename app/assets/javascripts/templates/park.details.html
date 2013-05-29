@@ -1,12 +1,12 @@
 
 <section id='park-details'>
-  <h2>{{park.name}}</h2>
-  <address class='park-description'>{{park.address}}</address>
+  <h2>{{state.park.name}}</h2>
+  <address class='park-description'>{{state.park.address}}</address>
   <ul class='park-resources'>
-    <li ng-repeat='(name, amenity) in amenities' ng-show='park[name] &gt;= 1'>
+    <li ng-repeat='(name, amenity) in state.amenities' ng-show='state.park[name] &gt;= 1'>
       <span class='icon-{{name}}' title='{{amenity.translation}}'></span>
     </li>
   </ul>
-  <small class='park-description'>This park is a {{park.classification}}</small>
-  <a class='reservation' href='#'>Make a Reservation</a>
+  <small class='park-description'>This park is a {{state.park.classification}}</small>
+  <a class='reservation' href='https://activenet023.active.com/atlantadprca/'>Make a Reservation</a>
 </section>

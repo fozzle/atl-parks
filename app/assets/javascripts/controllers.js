@@ -11,31 +11,19 @@ angular.module('parkFind.controllers', [
     'Parks',
 
     function ($scope, $rootScope, $location, Parks) {
-      $rootScope.search = [];
-      $rootScope.q = '';
+      $scope.state = {};
+      $scope.state.search = [];
+      $scope.state.q = '';
 
-      $rootScope.parks = [];
+      $scope.state.parks = [];
 
-      $rootScope.zoom = 13;
-      $rootScope.center = {
+      $scope.state.zoom = 13;
+      $scope.state.center = {
         lat: 33.7489,
         lng: -84.3881
       };
 
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function (position) {
-            $rootScope.center = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-
-            $rootScope.$apply();
-          }
-        )
-      }
-
-      $scope.amenities = {
+      $scope.state.amenities = {
         'pavilions': {
           'translation': 'Pavilions',
           'active': false
@@ -122,9 +110,22 @@ angular.module('parkFind.controllers', [
         }
       };
 
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            $scope.state.center = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+
+            $scope.$apply();
+          }
+        )
+      }
+
       $scope.doSearch = function() {
-        $scope.search['q'] = $scope.q;
-        $location.search('q', $scope.q);
+        $scope.state.search['q'] = $scope.state.q;
+        $location.search('q', $scope.state.q);
 
         $location.path('/parks');
         $scope.$broadcast('search:changed');
@@ -133,18 +134,18 @@ angular.module('parkFind.controllers', [
       $scope.amenityToggled = function (name) {
         $location.path('/parks');
 
-        if ($scope.amenities[name].active) {
+        if ($scope.state.amenities[name].active) {
           $location.search(name, 'true');
         } else {
           $location.search(name, null);
         }
 
-        $scope.search = $location.search();
+        $scope.state.search = $location.search();
         $scope.$broadcast('search:changed');
       }
 
       $scope.$on('search:changed', function() {
-        $scope.parks = Parks.query($scope.search);
+        $scope.state.parks = Parks.query($scope.state.search);
       })
     }
   ])
@@ -156,17 +157,17 @@ angular.module('parkFind.controllers', [
     'Parks',
 
     function ($scope, $rootScope, $location, Parks) {
-      if (!angular.equals($scope.search, $location.search())) {
-        $rootScope.search = $location.search();
-        $rootScope.q = $location.search()['q'];
+      if (!angular.equals($scope.state.search, $location.search())) {
+        $scope.state.search = $location.search();
+        $scope.state.q = $location.search()['q'];
         $rootScope.$broadcast('search:changed');
 
-        angular.forEach($scope.search, function (value, amenity) {
-          if ($scope.amenities[amenity] !== undefined && value === 'true') {
-            $scope.amenities[amenity].active = true;
+        angular.forEach($scope.state.search, function (value, amenity) {
+          if ($scope.state.amenities[amenity] !== undefined && value === 'true') {
+            $scope.state.amenities[amenity].active = true;
           }
         });
-      } else if ($scope.parks.length == 0) {
+      } else if ($scope.state.parks.length == 0) {
         $rootScope.$broadcast('search:changed');
       }
     }
@@ -180,19 +181,19 @@ angular.module('parkFind.controllers', [
     'Park',
 
     function ($scope, $rootScope, $routeParams, $location, Park) {
-      var parksEmpty = ($rootScope.parks.length == 0);
+      var parksEmpty = ($scope.state.parks.length == 0);
       
-      $scope.park = Park.get({
+      $scope.state.park = Park.get({
         parkId: $routeParams.parkId
       }, function (data) {
-        $rootScope.center = {
+        $scope.state.center = {
           lat: data.latitude,
           lng: data.longitude
         }
       });
 
-      if ($rootScope.parks.length == 0) {
-        $rootScope.parks = [$scope.park];
+      if ($scope.state.parks.length == 0) {
+        $scope.state.parks = [$scope.state.park];
       }
     }
   ]);

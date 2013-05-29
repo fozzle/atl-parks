@@ -47,12 +47,12 @@ a {
 }
 
 #page-header {
-  background-image: url('city.png');
-  background-size: 1800px;
-  background-position-y: 520px;
-  background-position-x: 50%;
   padding: 20px 10px 20px 50px;
   border-bottom: 6px solid $orange;
+  background-image: url('city.png');
+  background-position-x: 50%;
+  background-position-y: 520px;
+  background-size: 1800px;
 
   hgroup {
     @include hide-text;
@@ -60,15 +60,15 @@ a {
 }
 
 #navigation {
-  width: 300px;
-  padding: 20px;
-  float: left;
   position: absolute;
   top: 0;
   bottom: 0;
-  margin-top: 251px;
-  overflow-y: scroll;
+  float: left;
   overflow-x: visible;
+  overflow-y: scroll;
+  margin-top: 251px;
+  padding: 20px;
+  width: 300px;
 
   .nav-inner {
     padding: 5px 0;
@@ -81,12 +81,12 @@ a {
 }
 
 #overview {
-  display: block;
   position: absolute;
   top: 251px;
   right: 0;
   bottom: 0;
   left: 340px;
+  display: block;
   border-left: 5px solid $black;
 }
 
@@ -95,10 +95,10 @@ a {
 }
 
 #map {
-  display: block;
   position: absolute;
   top: 50px;
   bottom: 0;
+  display: block;
   width: 100%;
   border-top: 5px solid $black;
 }
@@ -126,21 +126,21 @@ a {
 }
 
 input, button {
-  color: $black;
-  border: none;
-  background-color: $cream;
-  padding: 15px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 15px;
   height: 100%;
+  border: none;
+  background-color: $cream;
+  color: $black;
 }
 
 .park-description {
-  font-weight: 100;
-  font-size: 1rem;
-  font-style: italic;
-  color: rgba($black, 0.9);
   display: block;
+  color: rgba($black, 0.9);
+  font-weight: 100;
+  font-style: italic;
+  font-size: 1rem;
 }
 
 .park-resources {
@@ -154,8 +154,8 @@ input, button {
 }
 
 #form-search {
-  border-right: 5px solid $black;
   width: 40%;
+  border-right: 5px solid $black;
 }
 
 .focused .icon-search-arrow:before {
@@ -163,8 +163,8 @@ input, button {
 }
 
 #form-resources {
-  line-height: normal;
   width: 60%;
+  line-height: normal;
 
   [class='icon-*'] {
     margin-right: 5px;
@@ -172,11 +172,11 @@ input, button {
 }
 
 .form-section {
+  position: relative;
+  float: left;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
   height: 100%;
-  float: left;
   font-size: 1.2rem;
 
   input:focus {
@@ -186,26 +186,26 @@ input, button {
 }
 
 .form-label {
-  width: 100%;
   padding-right: 50px;
+  width: 100%;
   text-align: left;
 }
 
 .form-arrow {
-  font-family: 'icomoon';
   position: absolute;
-  background: transparent;
-  right: 0;
   top: 0;
+  right: 0;
   width: 50px;
-  font-weight: 100;
+  background: transparent;
   color: $green;
+  font-weight: 100;
+  font-family: 'icomoon';
 }
 
 .form-dropdown {
   @include transition(background 0.15s linear);
-  background-color: $cream;
   display: none;
+  background-color: $cream;
 }
 
 .form-label:focus, .form-section.open {
@@ -219,21 +219,22 @@ input, button {
 }
 
 .form-section.open .form-dropdown {
-  color: $cream;
-  display: block;
   position: absolute;
   top: 50px;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: 1;
+  display: block;
+  background-color: $green;
+  color: $cream;
   li {
     display: block;
   }
 }
 
 .form-dropdown {
-  background-color: $green;
   padding: 15px;
+  background-color: $cream;
 
   input[type=checkbox] {
     position: absolute;
@@ -241,30 +242,37 @@ input, button {
     left: -9999px;
 
     &:checked ~ label {
-      background-color: $orange;
+      background-color: $orange !important;
     }
   }
 
   label {
+    @include transition(linear 0.15s all);
+    display: block;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    width: 100%;
-    display: block;
     padding: 5px;
+    width: 100%;
+    background-color: mix($black, $green, 10%);
+    cursor: pointer;
+
+    &:hover {
+      background-color: $dark-green;
+    }
   }
 
   ul {
     @include clearfix;
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   .amenity {
-    width: 32%;
-    margin: 0 2%;
-    float: left;
-    background-color: mix($black, $green, 10%);
     display: block;
+    float: left;
+    margin: 0 2%;
+    width: 32%;
+    cursor: pointer;
 
     &:nth-child(3n+4) {
       clear: left;
@@ -273,24 +281,20 @@ input, button {
     &:nth-child(3n+1), &:nth-child(3n) {
       margin: 0;
     }
-
-    &:hover {
-      background-color: $dark-green;
-    }
   }
 }
 
 #park-list {
-  line-height: 1.4;
-  font-weight: 600;
   margin: 0;
   padding: 0;
   list-style-type: none;
+  font-weight: 600;
+  line-height: 1.4;
 
 
   li {
-    border-bottom: 2px solid rgba($brown, 0.2);
     position: relative;
+    border-bottom: 2px solid rgba($brown, 0.2);
 
     &:last-child {
       border-bottom: none;
@@ -307,12 +311,12 @@ input, button {
   }
 
   .index {
-    display: inline-block;
     position: absolute;
+    display: inline-block;
     margin-left: -42px;
-    line-height: normal;
-    text-align: right;
     width: 30px;
+    text-align: right;
+    line-height: normal;
   }
 
   .park-name {
@@ -321,18 +325,18 @@ input, button {
 }
 
 #park-details {
-  background-color: $cream-green;
   padding: 10px 12px;
+  background-color: $cream-green;
 
   .reservation {
     display: block;
-    text-align: center;
+    margin-top: 10px;
     padding: 10px;
     border-radius: 5px;
     background-color: $orange;
     color: $white;
+    text-align: center;
     font-size: 1rem;
-    margin-top: 10px;
   }
 }
 
@@ -350,18 +354,18 @@ h1 {
 }
 
 #intro em {
+  display: block;
+  margin: 1em 0;
   color: mix($cream, $black, 50%);
   font-size: 0.8rem;
   line-height: 1.5;
-  margin: 1em 0;
-  display: block;
 }
 
 h3 {
+  margin-bottom: 0.5em;
+  font-weight: normal;
   font-size: 1.2rem;
   line-height: 1.2;
-  font-weight: normal;
-  margin-bottom: 0.5em;
 }
 
 #intro address {
