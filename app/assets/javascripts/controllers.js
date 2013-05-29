@@ -15,6 +15,7 @@ angular.module('parkFind.controllers', [
       $scope.state = {};
       $scope.state.search = [];
       $scope.state.search['page'] = 1;
+      $scope.state.pagingDisabled = false;
       $scope.state.q = '';
 
       $scope.state.parks = [];
@@ -128,8 +129,8 @@ angular.module('parkFind.controllers', [
       }
 
       $scope.nextPage = function() {
+        if ($scope.state.pagingDisabled) return;
         $scope.state.search['page'] += 1;
-        console.log($scope.state.search['page']);
         $scope.$broadcast('search:paged');
       }
 
@@ -162,15 +163,19 @@ angular.module('parkFind.controllers', [
 
       $scope.$on('search:changed', function() {
         $scope.state.parks = Parks.query($scope.state.search);
+        $scope.state.pagingDisabled = false;
       });
 
       $scope.$on('search:paged', function() {
         Parks.query($scope.state.search, function(data) {
-          angular.forEach(data, function (park) {
-            $scope.state.parks.push(park);
-          });
-        }, function(data) {
-          $scope.state.search['page'] -= 1;
+          if (data.length === 0) {
+            $scope.state.search['page'] -= 1;
+            $scope.state.pagingDisabled = true;
+          } else {
+            angular.forEach(data, function (park) {
+              $scope.state.parks.push(park);
+            });
+          }
         });
       });
 
