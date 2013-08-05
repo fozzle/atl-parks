@@ -1,0 +1,106 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"]:before {
+*/
+.icon-pool:before, .icon-track:before, .icon-picnic_shelters:before, .icon-picnic_tables:before, .icon-grill:before, .icon-tennis_courts:before, .icon-dog_park:before, .icon-parking_spaces:before, .icon-gazebos:before, .icon-restrooms:before, .icon-paved_trails:before, .icon-unpaved_trails:before, .icon-pavilions:before, .icon-soccer_fields:before, .icon-volleyball_courts:before, .icon-ball_fields:before, .icon-playgrounds:before, .icon-basketball_courts:before, .icon-nat:before, .icon-golf:before, .icon-gym:before, .icon-filter-arrow:before, .icon-search-arrow:before {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin-right: 5px;
+	color: $black;
+}
+.icon-pool:before {
+	content: "\e000";
+}
+.icon-track:before {
+	content: "\e001";
+}
+.icon-picnic_shelters:before {
+	content: "\e002";
+}
+.icon-picnic_tables:before {
+	content: "\e003";
+}
+.icon-grill:before {
+	content: "\e004";
+}
+.icon-tennis_courts:before {
+	content: "\e005";
+}
+.icon-dog_park:before {
+	content: "\e006";
+}
+.icon-parking_spaces:before {
+	content: "\e007";
+}
+.icon-gazebos:before {
+	content: "\e008";
+}
+.icon-restrooms:before {
+	content: "\e009";
+}
+.icon-paved_trails:before {
+	content: "\e00a";
+}
+.icon-unpaved_trails:before {
+	content: "\e00b";
+}
+.icon-pavilions:before {
+	content: "\e00c";
+}
+.icon-soccer_fields:before {
+	content: "\e00d";
+}
+.icon-volleyball_courts:before {
+	content: "\e00e";
+}
+.icon-ball_fields:before {
+	content: "\e00f";
+}
+.icon-playgrounds:before {
+	content: "\e010";
+}
+.icon-basketball_courts:before {
+	content: "\e011";
+}
+.icon-nat:before {
+	content: "\e012";
+}
+.icon-golf:before {
+	content: "\e013";
+}
+.icon-gym:before {
+	content: "\e014";
+}
+.icon-filter-arrow:before {
+	content: "\e015";
+}
+.icon-search-arrow:before {
+	content: "\e016";
+}
